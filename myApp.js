@@ -50,7 +50,7 @@ var arrayOfPeople = [
   }
 ]
 
-let createManyPeople = function(arrayOfPeople, done) {
+let createManyPeople = function (arrayOfPeople, done) {
   Person.create(arrayOfPeople, function (err, people) {
     if (err) return console.log(err);
     done(null, people);
@@ -59,16 +59,30 @@ let createManyPeople = function(arrayOfPeople, done) {
 
 
 
-const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+var findPeopleByName = function (personName, done) {
+  Person.find({ name: personName }, function (err, personFound) {
+    if (err) return done(err)
+    return done(null, personFound);
+  });
 };
 
-const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+
+// Finds person by specific food 
+
+let findOneByFood = function(food, done) {
+  Person.findOne({favoriteFoods: food}, function (err, data) {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
+
+// Find person by id
 
 const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findById(personId, (err, idFound) => {
+    if (err) return console.log(err)
+      done(null, idFound)
+  })
 };
 
 const findEditThenSave = (personId, done) => {
