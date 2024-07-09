@@ -35,11 +35,29 @@ const createAndSavePerson = (done) => {
   });
 }
 
+// Creates array of people. then creates many people using People model 
 
+var arrayOfPeople = [
+  {
+    name: 'Billy Conolly',
+    age: 82,
+    favouriteFoods: ['Haggis', 'Nips and Tatties']
+  },
+  {
+    name: 'Bob Mortimer',
+    age: 42,
+    favouriteFoods: ['Parmo', 'Sausage and mash ']
+  }
+]
 
-const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+let createManyPeople = function(arrayOfPeople, done) {
+  Person.create(arrayOfPeople, function (err, people) {
+    if (err) return console.log(err);
+    done(null, people);
+  });
 };
+
+
 
 const findPeopleByName = (personName, done) => {
   done(null /*, data*/);
