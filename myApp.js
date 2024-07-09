@@ -69,8 +69,8 @@ var findPeopleByName = function (personName, done) {
 
 // Finds person by specific food 
 
-let findOneByFood = function(food, done) {
-  Person.findOne({favoriteFoods: food}, function (err, data) {
+let findOneByFood = function (food, done) {
+  Person.findOne({ favoriteFoods: food }, function (err, data) {
     if (err) return console.log(err);
     done(null, data);
   });
@@ -78,17 +78,23 @@ let findOneByFood = function(food, done) {
 
 // Find person by id
 
-const findPersonById = (personId, done) => {
-  Person.findById(personId, (err, idFound) => {
-    if (err) return console.log(err)
-      done(null, idFound)
-  })
+var findPersonById = function (personId, done) {
+  Person.findById(personId, function (err, data) {
+    if (err) return console.log(err);
+    done(null, data);
+  });
 };
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
-
-  done(null /*, data*/);
+  Person.findById(personId, (err, person) => {
+    if (err) return console.log(err)
+    person.favoriteFoods.push(foodToAdd)
+    person.save((err, personUpdated) => {
+      if (err) return console.log(err)
+      done(null, personUpdated)
+    })
+  })
 };
 
 const findAndUpdate = (personName, done) => {
